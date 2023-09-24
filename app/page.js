@@ -1,6 +1,5 @@
 "use client";
 import {useMemo, useState} from "react";
-import {styled} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
@@ -10,23 +9,11 @@ import PriceCheckIcon from "@mui/icons-material/PriceCheck";
 import PaidIcon from "@mui/icons-material/Paid";
 import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import CircularProgress from "@mui/material/CircularProgress";
+import VisuallyHiddenInput from "./components/VisuallyHiddenInput";
 import {blueGrey} from "@mui/material/colors";
-
-const VisuallyHiddenInput = styled("input")({
-    clip: "rect(0 0 0 0)",
-    clipPath: "inset(50%)",
-    height: 1,
-    overflow: "hidden",
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    whiteSpace: "nowrap",
-    width: 1,
-});
+import ReportCard from "./components/ReportCard";
 
 export default function Home() {
     const [fileToUpload, setFileToUpload] = useState(null);
@@ -116,97 +103,30 @@ export default function Home() {
                     </Typography>
                 </Grid>
                 <Grid item sm={12} md={4}>
-                    <Card sx={{position: "relative"}}>
-                        <Grid container sx={{opacity: loading ? 0.3 : 1}}>
-                            <Grid item xs={4} className="flex items-center justify-center">
-                                <LocalShippingIcon fontSize="large" sx={{color: blueGrey[900]}} />
-                            </Grid>
-                            <Grid item xs={8}>
-                                <CardContent>
-                                    <Typography variant="h5" component="div" sx={{color: blueGrey[900]}}>
-                                        Parcel count
-                                    </Typography>
-                                    <Typography sx={{color: blueGrey[900]}}>{parcels.length}</Typography>
-                                </CardContent>
-                            </Grid>
-                        </Grid>
-                        {loading && (
-                            <CircularProgress
-                                size={32}
-                                sx={{
-                                    color: blueGrey[900],
-                                    position: "absolute",
-                                    top: "50%",
-                                    left: "50%",
-                                    marginTop: "-12px",
-                                    marginLeft: "-12px",
-                                }}
-                            />
-                        )}
-                    </Card>
+                    <ReportCard
+                        title="Parcel count"
+                        value={parcels.length}
+                        loading={loading}
+                        Icon={LocalShippingIcon}
+                    />
                 </Grid>
                 <Grid item sm={12} md={4}>
-                    <Card sx={{position: "relative"}}>
-                        <Grid container sx={{opacity: loading ? 0.3 : 1}}>
-                            <Grid item sm={12} md={4} className="flex items-center justify-center">
-                                <PaidIcon fontSize="large" sx={{color: blueGrey[900]}} />
-                            </Grid>
-                            <Grid item sm={12} md={8}>
-                                <CardContent>
-                                    <Typography sx={{color: blueGrey[900]}} variant="h5" component="div">
-                                        Revenue
-                                    </Typography>
-                                    <Typography sx={{color: blueGrey[900]}}>{revenue} €</Typography>
-                                </CardContent>
-                            </Grid>
-                        </Grid>
-                        {loading && (
-                            <CircularProgress
-                                size={32}
-                                sx={{
-                                    color: blueGrey[900],
-                                    position: "absolute",
-                                    top: "50%",
-                                    left: "50%",
-                                    marginTop: "-12px",
-                                    marginLeft: "-12px",
-                                }}
-                            />
-                        )}
-                    </Card>
+                    <ReportCard
+                        title="Total revenue"
+                        value={revenue}
+                        unit="€"
+                        loading={loading}
+                        Icon={PaidIcon}
+                    />
                 </Grid>
                 <Grid item sm={12} md={4}>
-                    <Card sx={{position: "relative"}}>
-                        <Grid container sx={{opacity: loading ? 0.3 : 1}}>
-                            <Grid item sm={12} md={4} className="flex items-center justify-center">
-                                <PriceCheckIcon fontSize="large" sx={{color: blueGrey[900]}} />
-                            </Grid>
-                            <Grid item sm={12} md={8}>
-                                <CardContent>
-                                    <Typography sx={{color: blueGrey[900]}} variant="h5" component="div">
-                                        Avg revenue
-                                    </Typography>
-                                    <Typography sx={{color: blueGrey[900]}}>
-                                        {parcels.length ? Math.round(revenue / parcels.length * 100) / 100 : "0"}
-                                        {" €"}
-                                    </Typography>
-                                </CardContent>
-                            </Grid>
-                        </Grid>
-                        {loading && (
-                            <CircularProgress
-                                size={32}
-                                sx={{
-                                    color: blueGrey[900],
-                                    position: "absolute",
-                                    top: "50%",
-                                    left: "50%",
-                                    marginTop: "-12px",
-                                    marginLeft: "-12px",
-                                }}
-                            />
-                        )}
-                    </Card>
+                    <ReportCard
+                        title="Avg revenue"
+                        value={parcels.length ? Math.round((revenue / parcels.length) * 100) / 100 : "0"}
+                        unit="€"
+                        loading={loading}
+                        Icon={PriceCheckIcon}
+                    />
                 </Grid>
             </Grid>
         </Box>
