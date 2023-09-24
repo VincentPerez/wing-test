@@ -111,13 +111,7 @@ export default function Home() {
                     />
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
-                    <ReportCard
-                        title="Total revenue"
-                        value={revenue}
-                        unit="€"
-                        loading={loading}
-                        Icon={PaidIcon}
-                    />
+                    <ReportCard title="Total revenue" value={revenue} unit="€" loading={loading} Icon={PaidIcon} />
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
                     <ReportCard
