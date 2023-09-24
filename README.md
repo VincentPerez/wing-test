@@ -1,36 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Wing technical test
+
+This is a [Next.js](https://nextjs.org/) project
 
 ## Getting Started
 
 First, run the development server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+You can upload the orders.json file of your choice and see the result.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Dig deeper
 
-## Learn More
+The project doesn't use any typing, database or ORM tool to cut to the essential. We could have used Typescript, MongoDB and Prisma.
 
-To learn more about Next.js, take a look at the following resources:
+This technical test is a way to start working on bin packing problems. In this version I implemented an easy [First-fit-decreasing](https://en.wikipedia.org/wiki/First-fit-decreasing_bin_packing) algorithm. We obtain 691 parcels, without any sorting or optimization we obtain less parcel - 685.
 
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+It would be interesting to know what we want to maximize or minimize. If we want to maximize the revenue, optimizing the parcel number might not be the best thing to do. On the other hand if we want to optimize the parcel count, we should try to implement a better algorithm - refined algorithms tend to have better results at the cost of a bigger computing cost, schematically they keep multiple parcels open and try to optimize the packing in a smarter way than single-class algorithm.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Deployed on Vercel
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+You can find it [deployed here](https://wing-test-pi.vercel.app/)
