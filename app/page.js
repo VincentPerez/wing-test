@@ -102,7 +102,7 @@ export default function Home() {
                         {fileToUpload?.name ?? "No file selected"}
                     </Typography>
                 </Grid>
-                <Grid item sm={12} md={4}>
+                <Grid item xs={12} sm={12} md={4}>
                     <ReportCard
                         title="Parcel count"
                         value={parcels.length}
@@ -110,7 +110,7 @@ export default function Home() {
                         Icon={LocalShippingIcon}
                     />
                 </Grid>
-                <Grid item sm={12} md={4}>
+                <Grid item xs={12} sm={12} md={4}>
                     <ReportCard
                         title="Total revenue"
                         value={revenue}
@@ -119,7 +119,7 @@ export default function Home() {
                         Icon={PaidIcon}
                     />
                 </Grid>
-                <Grid item sm={12} md={4}>
+                <Grid item xs={12} sm={12} md={4}>
                     <ReportCard
                         title="Avg revenue"
                         value={parcels.length ? Math.round((revenue / parcels.length) * 100) / 100 : "0"}
