@@ -1,11 +1,12 @@
 "use client";
-import {useState} from "react";
+import {useMemo, useState} from "react";
 import {styled} from "@mui/material/styles";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
+import PriceCheckIcon from "@mui/icons-material/PriceCheck";
 import PaidIcon from "@mui/icons-material/Paid";
 import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid";
@@ -55,6 +56,16 @@ export default function Home() {
             console.error(error);
         }
     };
+
+    const revenue = useMemo(
+        () =>
+            Math.round(
+                parcels.reduce((memo, parcel) => {
+                    return memo + parcel.revenue;
+                }, 0),
+            ),
+        [parcels],
+    );
 
     return (
         <Box
@@ -145,14 +156,7 @@ export default function Home() {
                                     <Typography sx={{color: blueGrey[900]}} variant="h5" component="div">
                                         Revenue
                                     </Typography>
-                                    <Typography sx={{color: blueGrey[900]}}>
-                                        {Math.round(
-                                            parcels.reduce((memo, parcel) => {
-                                                return memo + parcel.revenue;
-                                            }, 0),
-                                        )}{" "}
-                                        €
-                                    </Typography>
+                                    <Typography sx={{color: blueGrey[900]}}>{revenue} €</Typography>
                                 </CardContent>
                             </Grid>
                         </Grid>
@@ -160,7 +164,7 @@ export default function Home() {
                             <CircularProgress
                                 size={32}
                                 sx={{
-                                    color: "primary.main",
+                                    color: blueGrey[900],
                                     position: "absolute",
                                     top: "50%",
                                     left: "50%",
@@ -171,7 +175,39 @@ export default function Home() {
                         )}
                     </Card>
                 </Grid>
-                <Grid item sm={12} md={4}></Grid>
+                <Grid item sm={12} md={4}>
+                    <Card sx={{position: "relative"}}>
+                        <Grid container sx={{opacity: loading ? 0.3 : 1}}>
+                            <Grid item sm={12} md={4} className="flex items-center justify-center">
+                                <PriceCheckIcon fontSize="large" sx={{color: blueGrey[900]}} />
+                            </Grid>
+                            <Grid item sm={12} md={8}>
+                                <CardContent>
+                                    <Typography sx={{color: blueGrey[900]}} variant="h5" component="div">
+                                        Avg revenue
+                                    </Typography>
+                                    <Typography sx={{color: blueGrey[900]}}>
+                                        {parcels.length ? Math.round(revenue / parcels.length * 100) / 100 : "0"}
+                                        {" €"}
+                                    </Typography>
+                                </CardContent>
+                            </Grid>
+                        </Grid>
+                        {loading && (
+                            <CircularProgress
+                                size={32}
+                                sx={{
+                                    color: blueGrey[900],
+                                    position: "absolute",
+                                    top: "50%",
+                                    left: "50%",
+                                    marginTop: "-12px",
+                                    marginLeft: "-12px",
+                                }}
+                            />
+                        )}
+                    </Card>
+                </Grid>
             </Grid>
         </Box>
     );
